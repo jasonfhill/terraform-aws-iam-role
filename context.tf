@@ -1,31 +1,9 @@
-#
-# ONLY EDIT THIS FILE IN github.com/cloudposse/terraform-null-label
-# All other instances of this file should be a copy of that one
-#
-#
-# Copy this file from https://github.com/cloudposse/terraform-null-label/blob/master/exports/context.tf
-# and then place it in your Terraform module to automatically get
-# Cloud Posse's standard configuration inputs suitable for passing
-# to Cloud Posse modules.
-#
-# Modules should access the whole context as `module.this.context`
-# to get the input variables with nulls for defaults,
-# for example `context = module.this.context`,
-# and access individual variables as `module.this.<var>`,
-# with final values filled in.
-#
-# For example, when using defaults, `module.this.context.delimiter`
-# will be null, and `module.this.delimiter` will be `-` (hyphen).
-#
-
 module "this" {
   source  = "cloudposse/label/null"
-  version = "0.24.1" # requires Terraform >= 0.13.0
 
   enabled             = var.enabled
   namespace           = var.namespace
   environment         = var.environment
-  stage               = var.stage
   name                = var.name
   delimiter           = var.delimiter
   attributes          = var.attributes
@@ -40,7 +18,7 @@ module "this" {
   context = var.context
 }
 
-# Copy contents of cloudposse/terraform-null-label/variables.tf here
+
 
 variable "context" {
   type = any
@@ -48,7 +26,6 @@ variable "context" {
     enabled             = true
     namespace           = null
     environment         = null
-    stage               = null
     name                = null
     delimiter           = null
     attributes          = []
@@ -97,12 +74,6 @@ variable "environment" {
   description = "Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT'"
 }
 
-variable "stage" {
-  type        = string
-  default     = null
-  description = "Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'release'"
-}
-
 variable "name" {
   type        = string
   default     = null
@@ -113,7 +84,7 @@ variable "delimiter" {
   type        = string
   default     = null
   description = <<-EOT
-    Delimiter to be used between `namespace`, `environment`, `stage`, `name` and `attributes`.
+    Delimiter to be used between `namespace`, `environment`, `name` and `attributes`.
     Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.
   EOT
 }
@@ -141,7 +112,7 @@ variable "label_order" {
   default     = null
   description = <<-EOT
     The naming order of the id output and Name tag.
-    Defaults to ["namespace", "environment", "stage", "name", "attributes"].
+    Defaults to ["namespace", "environment", "name", "attributes"].
     You can omit any of the 5 elements, but at least one must be present.
   EOT
 }
@@ -150,7 +121,7 @@ variable "regex_replace_chars" {
   type        = string
   default     = null
   description = <<-EOT
-    Regex to replace chars with empty string in `namespace`, `environment`, `stage` and `name`.
+    Regex to replace chars with empty string in `namespace`, `environment` and `name`.
     If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.
   EOT
 }
@@ -174,7 +145,7 @@ variable "label_key_case" {
   type        = string
   default     = null
   description = <<-EOT
-    The letter case of label keys (`tag` names) (i.e. `name`, `namespace`, `environment`, `stage`, `attributes`) to use in `tags`.
+    The letter case of label keys (`tag` names) (i.e. `name`, `namespace`, `environment`, `attributes`) to use in `tags`.
     Possible values: `lower`, `title`, `upper`.
     Default value: `title`.
   EOT
@@ -199,4 +170,3 @@ variable "label_value_case" {
     error_message = "Allowed values: `lower`, `title`, `upper`, `none`."
   }
 }
-#### End of copy of cloudposse/terraform-null-label/variables.tf

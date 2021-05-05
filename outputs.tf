@@ -17,3 +17,13 @@ output "policy" {
   value       = join("", data.aws_iam_policy_document.default.*.json)
   description = "Role policy document in json format. Outputs always, independent of `enabled` variable"
 }
+
+output "outputs" {
+  description = "all the outputs"
+  value = {
+    name = join("", aws_iam_role.default.*.name)
+    id = join("", aws_iam_role.default.*.unique_id)
+    arn = join("", aws_iam_role.default.*.arn)
+    policy = join("", data.aws_iam_policy_document.default.*.json)
+  }
+}
