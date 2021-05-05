@@ -40,9 +40,7 @@ and gives permission to the entities specified in `principals_arns` to assume th
   }
 
   module "role" {
-    source = "cloudposse/iam-role/aws"
-    # Cloud Posse recommends pinning every module to a specific version
-    # version     = "x.x.x"
+    source = "github.com/jasonfhill/terraform-aws-iam-role"
 
     enabled   = true
     namespace = "eg"

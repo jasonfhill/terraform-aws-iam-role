@@ -1,7 +1,6 @@
 module "this" {
-  source  = "cloudposse/label/null"
+  source  = "github.com/jasonfhill/terraform-all-label"
 
-  enabled             = var.enabled
   namespace           = var.namespace
   environment         = var.environment
   name                = var.name
